@@ -17,6 +17,7 @@ export default function() {
     // Add an caption to the new `picItem`
   };
 
+  //fafa plus toggle for drop down
   btn.on(`click`, function() {
     $(`.the-brain`).slideToggle();
   });
@@ -27,6 +28,7 @@ export default function() {
     var image = $(`#img-url`).val();
     var caption = $(`#img-cap`).val();
 
+    //post to the server
     $.ajax({
       url: `http://tiny-lr.herokuapp.com/collections/photos-cw`,
       method: `POST`,
@@ -42,9 +44,18 @@ export default function() {
     });
   });
 
+  //cancel button
   $('.cancel').on('click', function() {
     $('.the-brain').slideUp();
     $('#img-url').val('');
     $('#img-cap').val('');
+  });
+
+  $.ajax({
+    url: `http://tiny-lr.herokuapp.com/collections/photos-cw`,
+    method: `GET`,
+    dataType: `json`,
+  }).then((response) => {
+    response.forEach(addPic);
   });
 }
